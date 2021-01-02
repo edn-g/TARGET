@@ -1,0 +1,11 @@
+include "../../lib/default.tmh"
+
+int main()
+{
+	// declare the event handler, return on error (add CREATE_KEYBOARD+CREATE_MOUSE as second Init() parameter to disable axis)
+	if(Init(&DefaultEventHandler)) return 1;
+
+	disableShiftButton();
+	configureBackLight(INT_DIM);
+	configureKeyboard();
+}

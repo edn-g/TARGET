@@ -1,0 +1,133 @@
+include "../../lib/target128.tmh"
+
+// GLOBAL DEFINITIONS
+define ON       1
+define OFF      0
+define DEFAULT -1
+
+//////////////////////////////////// KEYS CONFIG ////////////////////////////////////
+
+
+// Backlight
+define INT_BRT 255
+define INT_MED 129
+define INT_DIM 43
+define BACKLIGHT_BRT        LED(&Throttle, LED_INTENSITY, INT_BRT)
+define BACKLIGHT_MED        LED(&Throttle, LED_INTENSITY, INT_MED)
+define BACKLIGHT_DIM        LED(&Throttle, LED_INTENSITY, INT_DIM)
+define BACKLIGHT_ON	        LED(&Throttle, LED_ONOFF, LED_CURRENT+LED0)
+define BACKLIGHT_OFF        LED(&Throttle, LED_ONOFF, LED_CURRENT-LED0)
+
+// LEDs
+define LED1_ON              LED(&Throttle, LED_ONOFF, LED_CURRENT+LED1)
+define LED2_ON              LED(&Throttle, LED_ONOFF, LED_CURRENT+LED2)
+define LED3_ON              LED(&Throttle, LED_ONOFF, LED_CURRENT+LED3)
+define LED4_ON              LED(&Throttle, LED_ONOFF, LED_CURRENT+LED4)
+define LED5_ON              LED(&Throttle, LED_ONOFF, LED_CURRENT+LED5)
+define LED1_OFF             LED(&Throttle, LED_ONOFF, LED_CURRENT-LED1)
+define LED2_OFF             LED(&Throttle, LED_ONOFF, LED_CURRENT-LED2)
+define LED3_OFF             LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3)
+define LED4_OFF             LED(&Throttle, LED_ONOFF, LED_CURRENT-LED4)
+define LED5_OFF             LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5)
+
+// AXIS CORRECTIONS
+///////////////////
+
+define CURVE_THR_RIGHT LIST(0,0 , 100,100)
+define CURVE_THR_LEFT LIST(0,0, 99,100)
+
+// GLOBAL COMMANDS
+//////////////////
+	
+// FLIGHT CONTROL
+/////////////////
+	
+// GROUND CONTROL
+/////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+int excludeAllDevices()
+{
+	Exclude(&Throttle);
+	Exclude(&Joystick);
+	Exclude(&JoystickF18);
+	Exclude(&LMFD);
+	Exclude(&RMFD);
+	Exclude(&HCougar);
+	Exclude(&T16000);
+	Exclude(&T16000L);
+	Exclude(&TWCSThrottle);
+	Exclude(&TFRPRudder);
+	Exclude(&TFRPHARudder);
+	Exclude(&A320Pilot);
+	Exclude(&A320Copilot);
+}
+
+define MODE_ENABLED	86
+
+// Configure devices: MODE_ENABLED (default), MODE_EXCLUDED, MODE_KEEPENABLED or MODE_FILTERED
+int configureDevices(
+	int id1=0, int mode1=MODE_ENABLED,
+	int id2=0, int mode2=MODE_ENABLED,
+	int id3=0, int mode3=MODE_ENABLED,
+	int id4=0, int mode4=MODE_ENABLED,
+	int id5=0, int mode5=MODE_ENABLED,
+	int id6=0, int mode6=MODE_ENABLED,
+	int id7=0, int mode7=MODE_ENABLED,
+	int id8=0, int mode8=MODE_ENABLED,
+	int id9=0, int mode9=MODE_ENABLED,
+	int id10=0, int mode10=MODE_ENABLED,
+	int id11=0, int mode11=MODE_ENABLED,
+	int id12=0, int mode12=MODE_ENABLED,
+	int id13=0, int mode13=MODE_ENABLED
+) {
+	excludeAllDevices();
+	if (id1) Configure(id1, mode1);
+	if (id2) Configure(id2, mode2);
+	if (id3) Configure(id3, mode3);
+	if (id4) Configure(id4, mode4);
+	if (id5) Configure(id5, mode5);
+	if (id6) Configure(id6, mode6);
+	if (id7) Configure(id7, mode7);
+	if (id8) Configure(id8, mode8);
+	if (id9) Configure(id9, mode9);
+	if (id10) Configure(id10, mode2);
+	if (id11) Configure(id11, mode2);
+	if (id12) Configure(id12, mode2);
+	if (id13) Configure(id13, mode2);
+}
+
+int configureBackLight(int intensity = INT_MED, int on = DEFAULT)
+{
+	// Init Backlight intensity and turn LEDs off
+	ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, intensity));
+	ActKey(PULSE+KEYON+LED1_OFF);
+	ActKey(PULSE+KEYON+LED2_OFF);
+	ActKey(PULSE+KEYON+LED3_OFF);
+	ActKey(PULSE+KEYON+LED4_OFF);
+	ActKey(PULSE+KEYON+LED5_OFF);
+
+	// If required, enable backlight
+	if (on == ON) ActKey(PULSE+KEYON+BACKLIGHT_ON);
+	if (on == OFF) ActKey(PULSE+KEYON+BACKLIGHT_OFF);
+}
+
+int configureKeyboard()
+{
+	// Set keyboard emulation preferences
+	SetKBRate(50, 50);
+	SetKBLayout(KB_ENG);
+}
+
+int disableShiftButton()
+{
+	SetShiftButton(0, 0, 0, 0, 0);
+}
+
+int DefaultEventHandler(int type, alias o, int x)
+{
+    DefaultMapping(&o, x);
+	
+	//add event handling code here
+}
