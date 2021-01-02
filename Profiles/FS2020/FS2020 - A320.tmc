@@ -1,0 +1,27 @@
+include "FS2020.tmh"
+
+define A320_CURVE_DZ          2//0.5
+
+define A320_CURVE_CL         88//87.8
+define A320_CURVE_MCT        96//95.8
+define A320_CURVE_THR_RIGHT  LIST(0,0 , A320_CURVE_CL-A320_CURVE_DZ,A320_CURVE_CL , A320_CURVE_CL+A320_CURVE_DZ,A320_CURVE_CL , A320_CURVE_MCT-A320_CURVE_DZ,A320_CURVE_MCT , A320_CURVE_MCT+A320_CURVE_DZ,A320_CURVE_MCT , 100,100)
+define A320_CURVE_THR_LEFT   LIST(0,0 , A320_CURVE_CL-A320_CURVE_DZ-1,A320_CURVE_CL , A320_CURVE_CL+A320_CURVE_DZ-1,A320_CURVE_CL , A320_CURVE_MCT-A320_CURVE_DZ-1,A320_CURVE_MCT , A320_CURVE_MCT+A320_CURVE_DZ-1,A320_CURVE_MCT , 100-1,100)
+
+int main()
+{
+	configureDevices(&Throttle, MODE_ENABLED);
+
+	// declare the event handler, return on error (add CREATE_KEYBOARD+CREATE_MOUSE as second Init() parameter to disable axis)
+	if(Init(&DefaultEventHandler)) return 1;
+
+	disableShiftButton();
+	configureBackLight(INT_DIM);
+	configureKeyboard();
+
+	configureThrottleAxis();
+	configureThrottleCommands();
+
+	// Custom Curve to ease A320 throttle clicks
+	SetCustomCurve(&Throttle, THR_RIGHT, A320_CURVE_THR_RIGHT);
+	SetCustomCurve(&Throttle, THR_LEFT, A320_CURVE_THR_LEFT);
+}
