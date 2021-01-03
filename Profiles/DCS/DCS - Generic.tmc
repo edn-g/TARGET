@@ -1,0 +1,16 @@
+include "DCS.tmh"
+
+int main()
+{
+	configureDevices(&Throttle, MODE_ENABLED);
+
+	// declare the event handler, return on error (add CREATE_KEYBOARD+CREATE_MOUSE as second Init() parameter to disable axis)
+	if(Init(&DefaultEventHandler)) return 1;
+
+	disableShiftButton();
+	configureBackLight(INT_DIM, OFF);
+	configureKeyboard();
+
+	configureThrottleAxis();
+	configureThrottleCommands();
+}
