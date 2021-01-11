@@ -131,3 +131,91 @@ int DefaultEventHandler(int type, alias o, int x)
 	
 	//add event handling code here
 }
+
+int defaultThrottleCommands(int pulse = PULSE)
+{	
+	// Slew Control
+	MapKey(&Throttle, SC, DX1);
+	
+	// MIC Switch
+	MapKey(&Throttle, MSU, DX2);
+	MapKey(&Throttle, MSD, DX3);
+	MapKey(&Throttle, MSL, DX4);
+	MapKey(&Throttle, MSR, DX5);
+	MapKey(&Throttle, MSP, DX6);
+	
+	// Speedbrake
+	MapKey(&Throttle, SPDF, DX7);
+	MapKey(&Throttle, SPDM, pulse + DX8);
+	MapKey(&Throttle, SPDB, DX9);
+	
+	// Boat Switch
+	MapKey(&Throttle, BSF, DX10);
+	MapKey(&Throttle, BSM, pulse + DX11);
+	MapKey(&Throttle, BSB, DX12);
+	
+	// China Hat
+	MapKey(&Throttle, CHF, DX13);
+	MapKey(&Throttle, CHM, pulse + DX14);
+	MapKey(&Throttle, CHB, DX15);
+	
+	// Pinky Switch
+	MapKey(&Throttle, PSF, DX16);
+	MapKey(&Throttle, PSM, DX17);
+	MapKey(&Throttle, PSB, DX18);
+	
+	// Coolie Switch (POV)
+	MapKey(&Throttle, CSU, DX19);
+	MapKey(&Throttle, CSD, DX20);
+	MapKey(&Throttle, CSL, DX21);
+	MapKey(&Throttle, CSR, DX22);
+    
+    // Left Throttle Button
+	MapKey(&Throttle, LTB, DX23);
+    
+    // Engine Fuel Flow
+	MapKey(&Throttle, EFLNORM, DX24);
+	MapKey(&Throttle, EFLOVER, pulse + DX25);
+	MapKey(&Throttle, EFRNORM, DX26);
+	MapKey(&Throttle, EFROVER, pulse + DX27);
+    
+    // Engine IGN/Motor
+	MapKey(&Throttle, EOLIGN, DX28);
+	MapKey(&Throttle, EOLNORM, DX29);
+	MapKey(&Throttle, EOLMOTOR, pulse + DX30);
+	MapKey(&Throttle, EORIGN, DX31);
+	MapKey(&Throttle, EORNORM, DX32);
+	MapKey(&Throttle, EORMOTOR, pulse + DX33);
+	
+	// APU
+	MapKey(&Throttle, APUON, DX34);
+	MapKey(&Throttle, APUOFF, pulse + DX35);
+	
+	// Landing Gear Horn Silence Button
+	MapKey(&Throttle, LDGH, DX36);
+	
+	// Flaps
+	MapKey(&Throttle, FLAPU, pulse + DX37);
+	MapKey(&Throttle, FLAPM, pulse + DX38);
+	MapKey(&Throttle, FLAPD, pulse + DX39);
+    
+    // EAC
+	MapKey(&Throttle, EACON, DX40);
+	MapKey(&Throttle, EACOFF, pulse + DX41);
+    
+    // Radar
+	MapKey(&Throttle, RDRNRM, DX42);
+	MapKey(&Throttle, RDRDIS, DX43);
+    
+    // Autopilot
+	MapKey(&Throttle, APENG, DX47);
+	MapKey(&Throttle, APPAT, DX48);
+	MapKey(&Throttle, APAH, DX49);
+	MapKey(&Throttle, APALT, DX50);
+	
+	// Thrust Idle
+	MapKey(&Throttle, IDLELON, DX51);
+	MapKey(&Throttle, IDLELOFF, pulse + DX52);
+	MapKey(&Throttle, IDLERON, DX53);
+	MapKey(&Throttle, IDLEROFF, pulse + DX54);
+}

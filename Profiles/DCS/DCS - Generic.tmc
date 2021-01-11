@@ -12,5 +12,5 @@ int main()
 	configureKeyboard();
 
 	configureThrottleAxis();
-	configureThrottleCommands();
+	defaultThrottleCommands(OFF);
 }
